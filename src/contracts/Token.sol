@@ -4,7 +4,7 @@ pragma solidity >=0.4.22 <0.9.0;
 import "openzeppelin-solidity/contracts/utils/math/SafeMath.sol";
 
 contract Token {
-    using SafeMath for uint256;
+    using SafeMath for uint;
 
     // Variables
     string public name = "NerdX Token";
