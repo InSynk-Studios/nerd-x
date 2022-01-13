@@ -4,8 +4,8 @@ pragma solidity >=0.4.22 <0.9.0;
 import "openzeppelin-solidity/contracts/utils/math/SafeMath.sol";
 
 contract Token {
-    using SafeMath for uint;
-    
+    using SafeMath for uint256;
+
     // Variables
     string public name = "NerdX Token";
     string public symbol = "NEX";
@@ -16,14 +16,21 @@ contract Token {
 
     // Events
     event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 value
+    );
 
     constructor() {
-        totalSupply = 1000000 * (10 ** decimals);
+        totalSupply = 1000000 * (10**decimals);
         balanceOf[msg.sender] = totalSupply; // Solidity has global variables like `msg`
     }
 
-    function transfer(address _to, uint256 _value) public returns (bool success) {
+    function transfer(address _to, uint256 _value)
+        public
+        returns (bool success)
+    {
         /**
             _to: who are we transferring token to.
             _value: how many tokens.
@@ -34,14 +41,21 @@ contract Token {
     }
 
     // Approve tokens
-    function approve(address _spender, uint256 _value) public returns (bool success) {
+    function approve(address _spender, uint256 _value)
+        public
+        returns (bool success)
+    {
         require(_spender != address(0));
         allowance[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
         return true;
     }
 
-    function _transfer(address _from, address _to, uint256 _value) internal {
+    function _transfer(
+        address _from,
+        address _to,
+        uint256 _value
+    ) internal {
         require(_to != address(0));
         balanceOf[_from] = balanceOf[_from].sub(_value);
         balanceOf[_to] = balanceOf[_to].add(_value);
@@ -49,7 +63,11 @@ contract Token {
     }
 
     // Transfer from
-    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+    function transferFrom(
+        address _from,
+        address _to,
+        uint256 _value
+    ) public returns (bool success) {
         require(_value <= balanceOf[_from]);
         require(_value <= allowance[_from][msg.sender]);
         allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);
