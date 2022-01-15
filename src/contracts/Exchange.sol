@@ -14,8 +14,8 @@ import "openzeppelin-solidity/contracts/utils/math/SafeMath.sol";
     [X] Check balances
     [X] Make order 
     [X] Cancel order
-    [ ] Fill order
-    [ ] Charge fees
+    [X] Fill order
+    [X] Charge fees
  */
 
 contract Exchange {
@@ -32,6 +32,7 @@ contract Exchange {
     // Stores all the generated orders, mapped to the order id as key.
     mapping(uint256 => _Order) public orders; // uint256 is the id, attached to _Order
     mapping(uint256 => bool) public orderCancelled;
+    mapping(uint256 => bool) public orderFilled;
 
     event Deposit(address token, address user, uint256 amount, uint256 balance);
     event Withdraw(
@@ -56,6 +57,16 @@ contract Exchange {
         uint256 amountGet,
         address tokenGive,
         uint256 amountGive,
+        uint256 timestamp
+    );
+    event Trade(
+        uint256 id,
+        address user,
+        address tokenGet,
+        uint256 amountGet,
+        address tokenGive,
+        uint256 amountGive,
+        address userFill,
         uint256 timestamp
     );
 
@@ -148,10 +159,81 @@ contract Exchange {
     }
 
     function cancelOrder(uint256 _id) public {
-      _Order storage _order = orders[_id]; // storage means that we are fetching it from storage on blockchain.
-      require(address(_order.user) == msg.sender); // Order should be cancelled by the creator.
-      require(_order.id == _id); // Order must exist.
-      orderCancelled[_id] = true;
-      emit Cancel(_order.id, msg.sender, _order.tokenGet, _order.amountGet, _order.tokenGive, _order.amountGive, block.timestamp);
+        _Order storage _order = orders[_id]; // storage means that we are fetching it from storage on blockchain.
+        require(address(_order.user) == msg.sender); // Order should be cancelled by the creator.
+        require(_order.id == _id); // Order must exist.
+        orderCancelled[_id] = true;
+        emit Cancel(
+            _order.id,
+            msg.sender,
+            _order.tokenGet,
+            _order.amountGet,
+            _order.tokenGive,
+            _order.amountGive,
+            block.timestamp
+        );
+    }
+
+    function fillOrder(uint256 _id) public {
+        require(_id > 0 && _id <= orderCount);
+        require(!orderFilled[_id]);
+        require(!orderCancelled[_id]);
+        _Order storage _order = orders[_id];
+        _trade(
+            _order.id,
+            _order.user,
+            _order.tokenGet,
+            _order.amountGet,
+            _order.tokenGive,
+            _order.amountGive
+        );
+        orderFilled[_order.id] = true;
+    }
+
+    function _trade(
+        uint256 _orderId,
+        address _user,
+        address _tokenGet,
+        uint256 _amountGet,
+        address _tokenGive,
+        uint256 _amountGive
+    ) internal {
+        /**
+          Function to make the trade.
+          - Fee paid by the user that fills the order, a.k.a. `msg.sender`.
+          - Fee deducted from `_amountGet`.
+          - Fee added to `feeAccount`.
+       */
+
+        uint256 _feeAmount = _amountGive.mul(feePercent).div(100);
+
+        // Give token to the order creator, that he wanted to "get"
+        tokens[_tokenGet][msg.sender] = tokens[_tokenGet][msg.sender].sub(
+            _amountGet.add(_feeAmount)
+        ); // `msg.sender` is the one who is filling the order.
+        tokens[_tokenGet][_user] = tokens[_tokenGet][_user].add(_amountGet); // `_user` is the one who created the order.
+
+        // Collect the fees
+        tokens[_tokenGet][feeAccount] = tokens[_tokenGet][feeAccount].add(
+            _feeAmount
+        );
+
+        // Take token from the order creator, that he wanted to "give" in return
+        tokens[_tokenGive][_user] = tokens[_tokenGive][_user].sub(_amountGive);
+        tokens[_tokenGive][msg.sender] = tokens[_tokenGive][msg.sender].add(
+            _amountGive
+        );
+
+        // Emit a trade event
+        emit Trade(
+            _orderId,
+            _user,
+            _tokenGet,
+            _amountGet,
+            _tokenGive,
+            _amountGive,
+            msg.sender,
+            block.timestamp
+        );
     }
 }
