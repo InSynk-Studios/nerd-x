@@ -12,8 +12,8 @@ import "openzeppelin-solidity/contracts/utils/math/SafeMath.sol";
     [X] Deposit tokens
     [X] Withdraw tokens
     [X] Check balances
-    [ ] Make order 
-    [ ] Cancel order
+    [X] Make order 
+    [X] Cancel order
     [ ] Fill order
     [ ] Charge fees
  */
@@ -24,7 +24,14 @@ contract Exchange {
     address public feeAccount; // the account that receives exchange fees.
     uint256 public feePercent; // the fee percentage.
     address constant ETHER = address(0); // store Ether in tokens mapping with blank address
+    uint256 public orderCount;
+
+    // Stores all the tokens mapped to the users who deposited those tokens, and how much.
     mapping(address => mapping(address => uint256)) public tokens; // First key is token address, second is user address (who is depositing token) and value is total no. of tokens deposited by user (basically his balance on the exchange).
+
+    // Stores all the generated orders, mapped to the order id as key.
+    mapping(uint256 => _Order) public orders; // uint256 is the id, attached to _Order
+    mapping(uint256 => bool) public orderCancelled;
 
     event Deposit(address token, address user, uint256 amount, uint256 balance);
     event Withdraw(
@@ -33,6 +40,37 @@ contract Exchange {
         uint256 amount,
         uint256 balance
     );
+    event Order(
+        uint256 id,
+        address user,
+        address tokenGet,
+        uint256 amountGet,
+        address tokenGive,
+        uint256 amountGive,
+        uint256 timestamp
+    );
+    event Cancel(
+        uint256 id,
+        address user,
+        address tokenGet,
+        uint256 amountGet,
+        address tokenGive,
+        uint256 amountGive,
+        uint256 timestamp
+    );
+
+    struct _Order {
+        /**
+        A model for the order.
+       */
+        uint256 id;
+        address user;
+        address tokenGet; // Address of Token they are giving
+        uint256 amountGet; // Amount of Token they are giving
+        address tokenGive; // Address of Token they wanna get in exchange
+        uint256 amountGive; // Amount of Token they wanna get in exchange
+        uint256 timestamp; // Time of order creation
+    }
 
     constructor(address _feeAccount, uint256 _feePercent) {
         feeAccount = _feeAccount;
@@ -77,5 +115,43 @@ contract Exchange {
         returns (uint256)
     {
         return tokens[_token][_user];
+    }
+
+    function makeOrder(
+        address _tokenGet,
+        uint256 _amountGet,
+        address _tokenGive,
+        uint256 _amountGive
+    ) public {
+        /**
+        Make an order and store in the orders mapping.
+       */
+        orderCount = orderCount.add(1);
+        orders[orderCount] = _Order(
+            orderCount,
+            msg.sender,
+            _tokenGet,
+            _amountGet,
+            _tokenGive,
+            _amountGive,
+            block.timestamp
+        );
+        emit Order(
+            orderCount,
+            msg.sender,
+            _tokenGet,
+            _amountGet,
+            _tokenGive,
+            _amountGive,
+            block.timestamp
+        );
+    }
+
+    function cancelOrder(uint256 _id) public {
+      _Order storage _order = orders[_id]; // storage means that we are fetching it from storage on blockchain.
+      require(address(_order.user) == msg.sender); // Order should be cancelled by the creator.
+      require(_order.id == _id); // Order must exist.
+      orderCancelled[_id] = true;
+      emit Cancel(_order.id, msg.sender, _order.tokenGet, _order.amountGet, _order.tokenGive, _order.amountGive, block.timestamp);
     }
 }
