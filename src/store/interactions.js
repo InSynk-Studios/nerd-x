@@ -6,7 +6,7 @@
  */
 
 import Web3 from "web3"
-import { exchangeLoaded, tokenLoaded, web3AccountLoaded, web3Loaded } from "./actions"
+import { exchangeLoaded, tokenLoaded, web3AccountLoaded, web3Loaded, cancelledOrdersLoaded, filledOrdersLoaded, allOrdersLoaded } from "./actions"
 import Token from '../abis/Token.json'
 import Exchange from '../abis/Exchange.json'
 
@@ -28,7 +28,7 @@ export const loadToken = async (web3, networkId, dispatch) => {
     const token = new web3.eth.Contract(Token.abi, Token.networks[networkId].address)
     dispatch(tokenLoaded(token))
     return token
-  } catch(error) {
+  } catch (error) {
     console.log("Contract not deployed to the current network. Please select another network in Metamask.")
     return null
   }
@@ -39,8 +39,25 @@ export const loadExchange = async (web3, networkId, dispatch) => {
     const exchange = new web3.eth.Contract(Exchange.abi, Exchange.networks[networkId].address)
     dispatch(exchangeLoaded(exchange))
     return exchange
-  } catch(error) {
+  } catch (error) {
     console.log("Contract not deployed to the current network. Please select another network in Metamask.")
     return null
   }
+}
+
+export const loadAllOrders = async (exchange, dispatch) => {
+  // Fetch cancelled orders with the "Cancel" event stream
+  const cancelStream = await exchange.getPastEvents('Cancel', { fromBlock: 0, toBlock: 'latest' })
+  const cancelledOrders = await cancelStream.map((event) => event.returnValues)
+  dispatch(cancelledOrdersLoaded(cancelledOrders))
+  
+  // Fetch the filled orders (also called trades) with the "Trade" event stream
+  const tradeStream = await exchange.getPastEvents('Trade', { fromBlock: 0, toBlock: 'latest' })
+  const filledOrders = await tradeStream.map((event) => event.returnValues)
+  dispatch(filledOrdersLoaded(filledOrders))
+
+  // Fetch all orders with the "Order" event stream
+  const orderStream = await exchange.getPastEvents('Order', { fromBlock: 0, toBlock: 'latest' })
+  const allOrders = await orderStream.map((event) => event.returnValues)
+  dispatch(allOrdersLoaded(allOrders))
 }
