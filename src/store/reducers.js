@@ -1,8 +1,17 @@
+/**
+ * For personal reference,
+ * Reducers, in React, are a little similar to Vue.js mutations, 
+ * but it also has a lot of differences.
+ * A reducer is, as you may already know, one function that 
+ * accepts the `previous state` and the `action`, and returns the `next state`.
+ * 
+ * In the following,
+ * Each function is a reducer, which are all combined to create a rootReducer.
+ */
 import { combineReducers } from 'redux'
 
 function web3(state = {}, action) {
   switch (action.type) {
-    // TODO: Update the state
     case 'WEB3_LOADED':
       return { ...state, connection: action.connection }
     case 'WEB3_ACCOUNT_LOADED':
@@ -14,7 +23,6 @@ function web3(state = {}, action) {
 
 function token(state = {}, action) {
   switch (action.type) {
-    // TODO: Update the state
     case 'TOKEN_LOADED':
       return { ...state, loaded: true, contract: action.contract }
     default:
@@ -24,7 +32,6 @@ function token(state = {}, action) {
 
 function exchange(state = {}, action) {
   switch (action.type) {
-    // TODO: Update the state
     case 'EXCHANGE_LOADED':
       return { ...state, loaded: true, contract: action.contract }
     default:

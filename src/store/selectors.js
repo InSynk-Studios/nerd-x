@@ -1,4 +1,11 @@
-import { get } from 'lodash' // To get a default value if web3 doesn't exist
+/**
+ * For personal reference,
+ * (Reselect) Selectors, in React, are very much similar to getters in Vuex.
+ * You can use these selectors to get data from the state,
+ * and you can do any kind of filtering/modification of that data.
+ */
+
+import { get } from 'lodash'
 import { createSelector } from 'reselect'
 
 const account = state => get(state, 'web3.account')

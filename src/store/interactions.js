@@ -1,5 +1,8 @@
 /**
- * Handles all of our blockchain interactions with the Redux Actions.
+ * For personal reference,
+ * This file is used to use actions and 
+ * create `interactions` (A custom terminology, not from React)
+ * Here, We handle all of our blockchain interactions by dispatching Redux Actions.
  */
 
 import Web3 from "web3"

@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-// import { accountSelector } from "../store/selectors";
 
 class Content extends Component {
   render() {
@@ -76,7 +75,7 @@ class Content extends Component {
 
 function mapStateToProps(state) {
   return {
-    // account: accountSelector(state)
+    
   }
 }
 

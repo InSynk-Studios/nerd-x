@@ -1,3 +1,9 @@
+/**
+ * For personal reference,
+ * Actions in Redux are almost entirely similar to actions in Vuex.
+ * In this file, we are just declaring the actions.
+ */
+
 // WEB3
 export function web3Loaded(connection) {
   return {
