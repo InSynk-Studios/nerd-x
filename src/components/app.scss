@@ -1,6 +1,3 @@
-@import './variables.scss';
-@import '~bootstrap/scss/bootstrap';
-
 .content {
   background-color: #1d1d1d;
   position: absolute;
@@ -156,3 +153,6 @@ td.cancel-order {
 tr.order-book-order {
   cursor: pointer;
 }
+
+@import './variables.scss';
+@import '~bootstrap/scss/bootstrap';
