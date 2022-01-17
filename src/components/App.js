@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './app.scss';
 import Navbar from './Navbar';
 import Content from './Content';
 import { loadAccount, loadExchange, loadToken, loadWeb3 } from '../store/interactions';

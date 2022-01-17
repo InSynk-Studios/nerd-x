@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 class Content extends Component {
   render() {
     return (
-      <div className="content">
+      <div className="content bg-secondary">
         <div className="vertical-split">
           <div className="card bg-dark text-white">
             <div className="card-header">

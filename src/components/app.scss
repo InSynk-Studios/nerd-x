@@ -1,4 +1,7 @@
-.content  {
+@import './variables.scss';
+@import '~bootstrap/scss/bootstrap';
+
+.content {
   background-color: #1d1d1d;
   position: absolute;
   top: 56px;
@@ -14,24 +17,24 @@
   z-index: 1
 }
 
-.content > div {
+.content>div {
   width: 20%;
   padding-right: 8px
 }
 
-.content > div:first-child {
+.content>div:first-child {
   min-width: 220px
 }
 
-.content > div:nth-child(2) {
+.content>div:nth-child(2) {
   min-width: 200px
 }
 
-.content  div:nth-child(3) {
+.content div:nth-child(3) {
   width: 40%
 }
 
-.content > div:last-child {
+.content>div:last-child {
   padding-right: 0;
   min-width: 240px
 }
@@ -42,14 +45,14 @@
     overflow-y: auto
   }
 
-  .content > div {
-    width: 100%!important;
+  .content>div {
+    width: 100% !important;
     padding-right: 0;
     padding-bottom: 8px
   }
 }
 
-.vertical > div {
+.vertical>div {
   height: 100%
 }
 
@@ -61,19 +64,19 @@
   flex-wrap: nowrap
 }
 
-.vertical-split > div {
+.vertical-split>div {
   height: 50%
 }
 
-.vertical-split > div:first-child {
+.vertical-split>div:first-child {
   margin-bottom: 8px
 }
 
-.vertical-split:last-child > div:first-child {
+.vertical-split:last-child>div:first-child {
   height: 60%
 }
 
-.vertical-split:last-child > div:last-child {
+.vertical-split:last-child>div:last-child {
   height: 40%
 }
 
@@ -81,8 +84,9 @@
   .vertical-split {
     display: block
   }
-  .vertical-split > div,
-  .vertical-split > div:first-child {
+
+  .vertical-split>div,
+  .vertical-split>div:first-child {
     height: auto
   }
 }
@@ -100,7 +104,7 @@
   padding: 8px 4px;
 }
 
-.card-body{
+.card-body {
   flex: auto;
   overflow-y: auto;
   overflow-x: hidden;
@@ -137,7 +141,7 @@
 }
 
 .card-body .price-chart {
-  height:100%;
+  height: 100%;
   padding-bottom: 60px;
 }
 
