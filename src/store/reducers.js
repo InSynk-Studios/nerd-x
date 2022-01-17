@@ -16,7 +16,7 @@ function token(state = {}, action) {
   switch (action.type) {
     // TODO: Update the state
     case 'TOKEN_LOADED':
-      return { ...state, contract: action.contract }
+      return { ...state, loaded: true, contract: action.contract }
     default:
       return state
   }
@@ -26,7 +26,7 @@ function exchange(state = {}, action) {
   switch (action.type) {
     // TODO: Update the state
     case 'EXCHANGE_LOADED':
-      return { ...state, contract: action.contract }
+      return { ...state, loaded: true, contract: action.contract }
     default:
       return state
   }
