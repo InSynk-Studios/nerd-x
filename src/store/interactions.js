@@ -15,7 +15,9 @@ import {
   filledOrdersLoaded,
   allOrdersLoaded,
   orderCancelling,
-  orderCancelled
+  orderCancelled,
+  orderFilling,
+  orderFilled
 } from "./actions"
 import Token from '../abis/Token.json'
 import Exchange from '../abis/Exchange.json'
@@ -91,8 +93,31 @@ export const cancelOrder = async (dispatch, exchange, order, account) => {
     })
 }
 
+export const fillOrder = async (dispatch, exchange, order, account) => {
+  /** 
+   * We are using the event emitter approach to handle this async call.
+   * This means we have access to several lifecyle (of a transaction) events.
+   */
+  exchange.methods.fillOrder(order.id).send({ from: account })
+    .on('transactionHash', (hash) => {
+      /**
+       * This event means, that transaction has occurred and 
+       * we get the transaction hash now.
+       */
+      dispatch(orderFilling())
+    })
+    .on('error', (error) => {
+      console.log(error)
+      window.alert('There was an error.')
+    })
+}
+
 export const subscribeToEvents = async (exchange, dispatch) => {
   exchange.events.Cancel({}, (err, event) => {
     dispatch(orderCancelled(event.returnValues))
+  })
+
+  exchange.events.Trade({}, (err, event) => {
+    dispatch(orderFilled(event.returnValues))
   })
 }

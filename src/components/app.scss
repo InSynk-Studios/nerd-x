@@ -153,8 +153,10 @@
 
 td.cancel-order {
   cursor: pointer;
+  user-select: none;
 }
 
 tr.order-book-order {
   cursor: pointer;
+  user-select: none;
 }
