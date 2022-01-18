@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import logo from '../assets/nerdx-logo-md.png';
+import logo from '../assets/nerdx.svg';
 import { accountSelector } from "../store/selectors";
 
 class Navbar extends Component {
@@ -14,8 +14,8 @@ class Navbar extends Component {
             className="App-logo position-absolute"
             alt="logo"
             style={{
-              height: '50px',
-              top: '4px'
+              height: '45px',
+              top: '5px'
             }} />
         </a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
