@@ -8,14 +8,14 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3 position-relative">
         <a className="navbar-brand" href="/#">
-          <span style={{ height: '35px', display: 'block' }}></span>
+          <span style={{ height: '30px', display: 'block' }}></span>
           <img
             src={logo}
             className="App-logo position-absolute"
             alt="logo"
             style={{
-              height: '45px',
-              top: '5px'
+              height: '40px',
+              top: '8px'
             }} />
         </a>
         {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

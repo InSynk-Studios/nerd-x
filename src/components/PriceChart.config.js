@@ -4,6 +4,14 @@ export const chartOptions = {
     toolbar: { show: false },
     width: '100px'
   },
+  plotOptions: {
+    candlestick: {
+      colors: {
+        upward: '#00c896',
+        downward: '#dc3545'
+      }
+    }
+  },
   tooltip: {
     enabled: true,
     theme: false,
