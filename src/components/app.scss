@@ -1,3 +1,6 @@
+@import './variables.scss';
+@import '~bootstrap/scss/bootstrap';
+
 .content {
   background-color: #1d1d1d;
   position: absolute;
@@ -117,7 +120,7 @@
   border-color: #95999c;
 }
 
-.card-body .nav-item.nav-link {
+.card-body .nav-item .nav-link {
   font-size: 80%;
   font-weight: bold;
   background-color: inherit;
@@ -130,19 +133,21 @@
   border-radius: 0px;
 }
 
-.card-body .nav-item.nav-link.active {
+.card-body .nav-item .nav-link.active {
   border-top: 0px;
   border-right: 0px;
   border-left: 0px;
-  border-bottom: 1px solid #007bff;
+  border-bottom: 1px solid $primary;
 }
 
 .card-body .price-chart {
   height: 100%;
   padding-bottom: 60px;
+  padding-right: 15px;
 }
 
 .card-body .price-chart .price {
+  padding-top: 5px;
   padding-left: 20px;
 }
 
@@ -153,6 +158,3 @@ td.cancel-order {
 tr.order-book-order {
   cursor: pointer;
 }
-
-@import './variables.scss';
-@import '~bootstrap/scss/bootstrap';
