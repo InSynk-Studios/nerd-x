@@ -2,14 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Tab, Tabs } from 'react-bootstrap';
 import {
+  accountSelector,
+  exchangeSelector,
   myFilledOrdersLoadedSelector,
   myFilledOrdersSelector,
   myOpenOrdersLoadedSelector,
-  myOpenOrdersSelector
+  myOpenOrdersSelector,
+  orderCancellingSelector
 } from "../store/selectors";
 import Spinner from "./Spinner";
+import { cancelOrder } from "../store/interactions";
 
-const renderMyFilledOrders = (myFilledOrders) => {
+const renderMyFilledOrders = (props) => {
+  const { myFilledOrders } = props
   return (
     <tbody>
       {myFilledOrders.map((order) => {
@@ -25,7 +30,9 @@ const renderMyFilledOrders = (myFilledOrders) => {
   )
 }
 
-const renderMyOpenOrders = (myOpenOrders) => {
+const renderMyOpenOrders = (props) => {
+  const { myOpenOrders, dispatch, exchange, account } = props
+
   return (
     <tbody>
       {myOpenOrders.map((order) => {
@@ -33,7 +40,12 @@ const renderMyOpenOrders = (myOpenOrders) => {
           <tr key={order.id}>
             <td className={`text-${order.orderTypeClass}`}>{order.tokenAmount}</td>
             <td className={`text-${order.orderTypeClass}`}>{order.tokenPrice}</td>
-            <td className="text-muted">x</td>
+            <td
+              className="text-muted cancel-order"
+              onClick={(e) => {
+                cancelOrder(dispatch, exchange, order, account)
+              }}
+            >X</td>
           </tr>
         )
       })}
@@ -59,7 +71,7 @@ class Navbar extends Component {
                     <th>NEX/ETH</th>
                   </tr>
                 </thead>
-                {this.props.showMyFilledOrders ? renderMyFilledOrders(this.props.myFilledOrders) : <Spinner type="table" />}
+                {this.props.showMyFilledOrders ? renderMyFilledOrders(this.props) : <Spinner type="table" />}
               </table>
             </Tab>
             <Tab eventKey="orders" title="Orders">
@@ -71,7 +83,7 @@ class Navbar extends Component {
                     <th>Cancel</th>
                   </tr>
                 </thead>
-                {this.props.showMyOpenOrders ? renderMyOpenOrders(this.props.myOpenOrders) : <Spinner type="table" />}
+                {this.props.showMyOpenOrders ? renderMyOpenOrders(this.props) : <Spinner type="table" />}
               </table>
             </Tab>
           </Tabs>
@@ -83,11 +95,16 @@ class Navbar extends Component {
 
 
 function mapStateToProps(state) {
+  const myOpenOrdersLoaded =  myOpenOrdersLoadedSelector(state)
+  const orderCancelling = orderCancellingSelector(state)
+
   return {
     myFilledOrders: myFilledOrdersSelector(state),
     showMyFilledOrders: myFilledOrdersLoadedSelector(state),
     myOpenOrders: myOpenOrdersSelector(state),
-    showMyOpenOrders: myOpenOrdersLoadedSelector(state)
+    showMyOpenOrders: myOpenOrdersLoaded && !orderCancelling,
+    exchange: exchangeSelector(state),
+    account: accountSelector(state)
   }
 }
 

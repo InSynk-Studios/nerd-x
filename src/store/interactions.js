@@ -6,7 +6,17 @@
  */
 
 import Web3 from "web3"
-import { exchangeLoaded, tokenLoaded, web3AccountLoaded, web3Loaded, cancelledOrdersLoaded, filledOrdersLoaded, allOrdersLoaded } from "./actions"
+import {
+  exchangeLoaded,
+  tokenLoaded,
+  web3AccountLoaded,
+  web3Loaded,
+  cancelledOrdersLoaded,
+  filledOrdersLoaded,
+  allOrdersLoaded,
+  orderCancelling,
+  orderCancelled
+} from "./actions"
 import Token from '../abis/Token.json'
 import Exchange from '../abis/Exchange.json'
 
@@ -50,7 +60,7 @@ export const loadAllOrders = async (exchange, dispatch) => {
   const cancelStream = await exchange.getPastEvents('Cancel', { fromBlock: 0, toBlock: 'latest' })
   const cancelledOrders = await cancelStream.map((event) => event.returnValues)
   dispatch(cancelledOrdersLoaded(cancelledOrders))
-  
+
   // Fetch the filled orders (also called trades) with the "Trade" event stream
   const tradeStream = await exchange.getPastEvents('Trade', { fromBlock: 0, toBlock: 'latest' })
   const filledOrders = await tradeStream.map((event) => event.returnValues)
@@ -60,4 +70,29 @@ export const loadAllOrders = async (exchange, dispatch) => {
   const orderStream = await exchange.getPastEvents('Order', { fromBlock: 0, toBlock: 'latest' })
   const allOrders = await orderStream.map((event) => event.returnValues)
   dispatch(allOrdersLoaded(allOrders))
+}
+
+export const cancelOrder = async (dispatch, exchange, order, account) => {
+  /** 
+   * We are using the event emitter approach to handle this async call.
+   * This means we have access to several lifecyle (of a transaction) events.
+   */
+  exchange.methods.cancelOrder(order.id).send({ from: account })
+    .on('transactionHash', (hash) => {
+      /**
+       * This event means, that transaction has occurred and 
+       * we get the transaction hash now.
+       */
+      dispatch(orderCancelling())
+    })
+    .on('error', (error) => {
+      console.log(error)
+      window.alert('There was an error.')
+    })
+}
+
+export const subscribeToEvents = async (exchange, dispatch) => {
+  exchange.events.Cancel({}, (err, event) => {
+    dispatch(orderCancelled(event.returnValues))
+  })
 }

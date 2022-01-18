@@ -55,3 +55,18 @@ export function allOrdersLoaded(allOrders) {
     allOrders
   }
 }
+
+export function orderCancelling() { 
+  // We call it cancelling as it means that we have initiated cancel order action,
+  // and it's not yet cancelled.
+  return {
+    type: 'ORDER_CANCELLING'
+  }
+}
+
+export function orderCancelled(order) { 
+  return {
+    type: 'ORDER_CANCELLED',
+    order
+  }
+}
