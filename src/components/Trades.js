@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { filledOrdersLoadedSelector, filledOrdersSelector } from "../store/selectors";
 import Spinner from './Spinner';
 
-const showFilledOrders = (filledOrders) => {
+const renderFilledOrders = (filledOrders) => {
   return (
     <tbody>
       {filledOrders.map((order) => {
@@ -36,7 +36,7 @@ class Trades extends Component {
                   <th>NEX/ETH</th>
                 </tr>
               </thead>
-              {this.props.filledOrdersLoaded ? showFilledOrders(this.props.filledOrders) : <Spinner type="table" />}
+              {this.props.filledOrdersLoaded ? renderFilledOrders(this.props.filledOrders) : <Spinner type="table" />}
             </table>
           </div>
         </div>
