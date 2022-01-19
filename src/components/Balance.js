@@ -68,7 +68,7 @@ const renderForm = (props) => {
           </tbody>
         </table>
 
-        <form className="row" onSubmit={(event) => {
+        <form className="row px-1" onSubmit={(event) => {
           event.preventDefault()
           depositEther(dispatch, exchange, web3, etherDepositAmount, account)
         }}>
@@ -99,7 +99,7 @@ const renderForm = (props) => {
           </tbody>
         </table>
 
-        <form className="row" onSubmit={(event) => {
+        <form className="row px-1" onSubmit={(event) => {
           event.preventDefault()
           depositToken(dispatch, exchange, web3, token, tokenDepositAmount, account)
         }}>
@@ -138,7 +138,7 @@ const renderForm = (props) => {
           </tbody>
         </table>
 
-        <form className="row" onSubmit={(event) => {
+        <form className="row px-1" onSubmit={(event) => {
           event.preventDefault()
           withdrawEther(dispatch, exchange, web3, etherWithdrawAmount, account)
         }}>
@@ -169,7 +169,7 @@ const renderForm = (props) => {
           </tbody>
         </table>
 
-        <form className="row" onSubmit={(event) => {
+        <form className="row px-1" onSubmit={(event) => {
           event.preventDefault()
           withdrawToken(dispatch, exchange, web3, token, tokenWithdrawAmount, account)
         }}>
