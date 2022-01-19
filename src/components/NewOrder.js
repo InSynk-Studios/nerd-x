@@ -80,7 +80,7 @@ const renderForm = (props) => {
           makeSellOrder(dispatch, exchange, token, web3, sellOrder, account)
         }}>
         <div className="form-group small">
-          <label>Sell (NEX)</label>
+          <label>Sell Amount (NEX)</label>
           <div className="input-group">
             <input
               type="text"
