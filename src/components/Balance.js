@@ -77,7 +77,7 @@ const renderForm = (props) => {
               type="text"
               placeholder="ETH Amount"
               onChange={(e) => dispatch(etherDepositAmountChanged(e.target.value))}
-              className="form-control form-control-sm bg-dark text-white"
+              className="form-control form-control-sm bg-dark text-white mb-2"
               required
             />
           </div>
@@ -108,7 +108,7 @@ const renderForm = (props) => {
               type="text"
               placeholder="NEX Amount"
               onChange={(e) => dispatch(tokenDepositAmountChanged(e.target.value))}
-              className="form-control form-control-sm bg-dark text-white"
+              className="form-control form-control-sm bg-dark text-white mb-2"
               required
             />
           </div>
@@ -147,7 +147,7 @@ const renderForm = (props) => {
               type="text"
               placeholder="ETH Amount"
               onChange={(e) => dispatch(etherWithdrawAmountChanged(e.target.value))}
-              className="form-control form-control-sm bg-dark text-white"
+              className="form-control form-control-sm bg-dark text-white mb-2"
               required
             />
           </div>
@@ -178,7 +178,7 @@ const renderForm = (props) => {
               type="text"
               placeholder="NEX Amount"
               onChange={(e) => dispatch(tokenWithdrawAmountChanged(e.target.value))}
-              className="form-control form-control-sm bg-dark text-white"
+              className="form-control form-control-sm bg-dark text-white mb-2"
               required
             />
           </div>
