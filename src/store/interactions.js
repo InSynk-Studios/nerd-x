@@ -140,7 +140,6 @@ export const subscribeToEvents = async (exchange, dispatch) => {
   })
 
   exchange.events.Order({}, (error, event) => {
-    console.log('Order event!')
     dispatch(orderMade(event.returnValues))
   })
 }

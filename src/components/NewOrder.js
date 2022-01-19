@@ -131,7 +131,6 @@ class NewOrder extends Component {
 function mapStateToProps(state) {
   const buyOrder = buyOrderSelector(state)
   const sellOrder = sellOrderSelector(state)
-  console.log(!buyOrder.making, !sellOrder.making)
 
   return {
     account: accountSelector(state),
