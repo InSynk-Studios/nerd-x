@@ -56,7 +56,7 @@ export function allOrdersLoaded(allOrders) {
   }
 }
 
-export function orderCancelling() { 
+export function orderCancelling() {
   // We call it cancelling as it means that we have initiated cancel order action,
   // and it's not yet cancelled.
   return {
@@ -64,22 +64,90 @@ export function orderCancelling() {
   }
 }
 
-export function orderCancelled(order) { 
+export function orderCancelled(order) {
   return {
     type: 'ORDER_CANCELLED',
     order
   }
 }
 
-export function orderFilling() { 
+export function orderFilling() {
   return {
     type: 'ORDER_FILLING'
   }
 }
 
-export function orderFilled(order) { 
+export function orderFilled(order) {
   return {
     type: 'ORDER_FILLED',
     order
+  }
+}
+
+export function etherBalanceLoaded(balance) {
+  return {
+    type: 'ETHER_BALANCE_LOADED',
+    balance
+  }
+}
+
+export function tokenBalanceLoaded(balance) {
+  return {
+    type: 'TOKEN_BALANCE_LOADED',
+    balance
+  }
+}
+
+export function exchangeEtherBalanceLoaded(balance) {
+  return {
+    type: 'EXCHANGE_ETHER_BALANCE_LOADED',
+    balance
+  }
+}
+
+export function exchangeTokenBalanceLoaded(balance) {
+  return {
+    type: 'EXCHANGE_TOKEN_BALANCE_LOADED',
+    balance
+  }
+}
+
+export function balancesLoaded() {
+  return {
+    type: 'BALANCES_LOADED'
+  }
+}
+
+export function balancesLoading() {
+  return {
+    type: 'BALANCES_LOADING'
+  }
+}
+
+export function etherDepositAmountChanged(amount) {
+  return {
+    type: 'ETHER_DEPOSIT_AMOUNT_CHANGED',
+    amount
+  }
+}
+
+export function etherWithdrawAmountChanged(amount) {
+  return {
+    type: 'ETHER_WITHDRAW_AMOUNT_CHANGED',
+    amount
+  }
+}
+
+export function tokenDepositAmountChanged(amount) {
+  return {
+    type: 'TOKEN_DEPOSIT_AMOUNT_CHANGED',
+    amount
+  }
+}
+
+export function tokenWithdrawAmountChanged(amount) {
+  return {
+    type: 'TOKEN_WITHDRAW_AMOUNT_CHANGED',
+    amount
   }
 }
