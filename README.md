@@ -1,9 +1,8 @@
 <img style="height: 100px" src="./src/assets/nerdx-dark.svg"/>
 <br>
-<br>
 
 # NerdX - Decentralized Ethereum based exchange
-You can have a look at this demo video to get a sense of how the project works.
+You can have a look at this **demo video** to get a sense of how the project works. Click on the image to view the demo video.
 
 [![Check out video on YouTube](https://i.imgur.com/9i1So08.png)](https://www.youtube.com/watch?v=lCV6mmJH3BQ&feature=youtu.be)
 
