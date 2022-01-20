@@ -16,7 +16,6 @@ import {
   tokenWithdrawAmountSelector
 } from "../store/selectors";
 import {
-  loadBalances,
   depositEther,
   withdrawEther,
   depositToken,
@@ -195,15 +194,6 @@ const renderForm = (props) => {
 }
 
 class Balance extends Component {
-  componentDidMount() {
-    this.loadBlockchainData()
-  }
-
-  async loadBlockchainData() {
-    const { dispatch, web3, exchange, token, account } = this.props;
-    await loadBalances(dispatch, web3, exchange, token, account);
-  }
-
   render() {
     return (
       <div className="card bg-dark text-white">

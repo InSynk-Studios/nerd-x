@@ -32,18 +32,29 @@ import Token from '../abis/Token.json'
 import Exchange from '../abis/Exchange.json'
 import { ETHER_ADDRESS } from "../helpers"
 
-export const loadWeb3 = (dispatch) => {
+export const loadWeb3 = async (dispatch) => {
   if (typeof window.ethereum !== 'undefined') {
     const web3 = new Web3(window.ethereum)
     dispatch(web3Loaded(web3))
+    await loadAccount(web3, dispatch)
     return web3
   } else {
     window.alert('Please install MetaMask')
-    window.location.assign("https://metamask.io/")
   }
 }
 
-export const loadAccount = async (web3, dispatch) => {
+export const loginMetamask = async (dispatch) => {
+  try {
+    await window.ethereum.request({ method: 'eth_requestAccounts' })
+    await loadWeb3(dispatch)
+    window.location.reload();
+  } catch (error) {
+    console.log(error)
+    window.alert('There was an error while logging in with Metamask.')
+  }
+}
+
+const loadAccount = async (web3, dispatch) => {
   const accounts = await web3.eth.getAccounts()
   const account = accounts[0]
   dispatch(web3AccountLoaded(account))
@@ -151,6 +162,7 @@ export const subscribeToEvents = async (exchange, dispatch) => {
 
 export const loadBalances = async (dispatch, web3, exchange, token, account) => {
   if (typeof account !== 'undefined') {
+    console.log("Call to load balances")
     // Ether balance in wallet
     const etherBalance = await web3.eth.getBalance(account)
     dispatch(etherBalanceLoaded(etherBalance))

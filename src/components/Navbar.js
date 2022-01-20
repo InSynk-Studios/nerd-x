@@ -23,6 +23,13 @@ class Navbar extends Component {
         </button> */}
         <ul className="navbar-nav ms-auto">
           <li className="nav-item">
+            <span className="nav-link small font-monospace text-primary">
+              (available on Ropsten network)
+            </span>
+          </li>
+        </ul>
+        <ul className="navbar-nav">
+          <li className="nav-item">
             <a
               className="nav-link small"
               href={`https://etherscan.io/address/${this.props.account}`}
