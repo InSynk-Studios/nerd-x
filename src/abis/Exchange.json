@@ -247,7 +247,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -260,7 +261,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -279,7 +281,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -292,7 +295,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -311,7 +315,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -360,7 +365,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -384,14 +390,16 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
       "name": "depositEther",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [
@@ -404,7 +412,8 @@
       "name": "withdrawEther",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function"
+      "type": "function",
+      "payable": true
     },
     {
       "inputs": [
@@ -464,7 +473,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -24029,15 +24039,28 @@
     "version": "0.8.10+commit.fc410830.Emscripten.clang"
   },
   "networks": {
+    "3": {
+      "events": {},
+      "links": {},
+      "address": "0xf0CC11e75dabaa479964F20F6a168F4E4227Ac6f",
+      "transactionHash": "0x466cdd7b87e0f386777a3e639ab4cfa8c7feacb51cfd92968ed6780b5c01f7eb"
+    },
     "5777": {
       "events": {},
       "links": {},
       "address": "0xf0CC11e75dabaa479964F20F6a168F4E4227Ac6f",
       "transactionHash": "0x5e76ed620c55c4bcd0dd821ea67b4ffecddd669edf9558fc2edbb39859834fe6"
+    },
+    "80001": {
+      "events": {},
+      "links": {},
+      "address": "0xc7C650601d7Dd405632E901Fd7162D0E89C18eCC",
+      "transactionHash": "0xc8cd5c15adae76b7756f57bb30be919678b94a635606d3e6c6fa3e9aad99927b"
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-01-19T10:02:37.829Z",
+  "updatedAt": "2022-01-20T08:30:07.029Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

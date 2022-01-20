@@ -1,9 +1,11 @@
 require('@babel/register');
 require('@babel/polyfill');
 require('dotenv').config();
-const HDWalletProvider = require('truffle-hdwallet-provider-privkey');
+// const HDWalletProvider = require('truffle-hdwallet-provider-privkey');
 const privateKeys = process.env.PRIVATE_KEYS || ''
-console.log(privateKeys.split(","))
+// console.log(privateKeys.split(","))
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+// const mnemonic = process.env.MNEMONIC || '';
 
 /**
  * Use this file to configure your truffle project. It's seeded with some
@@ -53,18 +55,28 @@ module.exports = {
       port: 7545,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
     },
-    kovan: {
+    // matic: {
+    //   provider: () => new HDWalletProvider(
+    //     privateKeys.split(","),
+    //     `https://rpc-mumbai.maticvigil.com/v1/${process.env.MATIC_VIGIL_KEY}`
+    //   ),
+    //   network_id: 80001,
+    //   confirmations: 2,
+    //   timeoutBlocks: 200,
+    //   skipDryRun: true
+    // },
+    ropsten: {
       // We need an ethereum provider
-      provider: function () {
-        return new HDWalletProvider(
-          privateKeys.split(','), // Array of account private keys
-          `https://kovan.infura.io/v3/${process.env.INFURA_API_KEY}`// Url to an Ethereum Node
-        )
-      },
-      gas: 5000000,
-      gasPrice: 25000000000,
-      network_id: 42
-    }
+      provider: () => new HDWalletProvider(
+        privateKeys.split(","),
+        `https://ropsten.infura.io/v3/${process.env.INFURA_API_KEY}`
+      ),
+      network_id: 3,       // Ropsten's id
+      gas: 5500000,        // Ropsten has a lower block limit than mainnet
+      confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true
+    },
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port
