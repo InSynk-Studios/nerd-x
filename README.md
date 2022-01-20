@@ -2,12 +2,18 @@
 
 <img style="height: 100px" src="./src/assets/nerdx-dark.svg"/>
 
-[![Check out video on YouTube](https://img.youtube.com/vi/lCV6mmJH3BQ/3.jpg)](https://www.youtube.com/watch?v=lCV6mmJH3BQ&feature=youtu.be)
+<br>
+<br>
+
+## Demo Video
+You can have a look at this demo video to get a sense of how the project works.
+
+[![Check out video on YouTube](https://i.imgur.com/9i1So08.png)](https://www.youtube.com/watch?v=lCV6mmJH3BQ&feature=youtu.be)
 
 
-*(Right now, working on Ropsten Testnet)*
+*(Right now, it's working on Ropsten Testnet)*
 
-Check out the [Live Demo](https://nerd-x.herokuapp.com/). The project supports Metamask, for now. 
+You can also check out the [Live Demo](https://nerd-x.herokuapp.com/). The project supports only Metamask, for now. 
 
 ## About
 **Note: This project was created as a portfolio projects for InSynk Studios and it we do not intend to monetize on it by launching on the mainnet.**
