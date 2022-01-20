@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# NerdX - Decentralized Ethereum based exchange
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img style="height: 100px" src="./src/assets/nerdx-dark.svg"/>
 
-## Available Scripts
+[![Check out video on YouTube](https://img.youtube.com/vi/lCV6mmJH3BQ/3.jpg)](https://www.youtube.com/watch?v=lCV6mmJH3BQ&feature=youtu.be)
 
-In the project directory, you can run:
 
-### `npm start`
+*(Right now, working on Ropsten Testnet)*
 
-Runs the app in the development mode.\
+Check out the [Live Demo](https://nerd-x.herokuapp.com/). The project supports Metamask, for now. 
+
+## About
+**Note: This project was created as a portfolio projects for InSynk Studios and it we do not intend to monetize on it by launching on the mainnet.**
+
+NerdX is a decentralized exchange which allows you to buy and sell the `NEX` token (NerdX token) in exchange for ether. `NEX` is an ERC20 token.
+
+The exchange has the following features:
+* Deposit Ether into the exchange
+* Withdraw Ether from the exchange
+* Deposit `NEX` into the exchange
+* Withdraw `NEX` from the exchange
+* Make `buy` and `sell` orders
+* Fill `buy` and `sell` orders, from the Order book
+* Graph view of the token price
+* View all the trades that you have done
+* View all the orders you have made
+* Cancel a previously made, unfulfilled, order
+* View all the trades that has been made yet
+
+In order to use the exchange, you just need to login with your Metamask wallet, on the Ropsten network.
+
+## Contribution
+
+To contribute to this project, first you need to set it up, locally. Follow the tutorial below:
+
+### Frontend
+You need to install all the dependencies for this project's frontend. (I have used `npm` in this project, if you intend to use other package managers, make sure to delete the `package-lock.json`.)
+
+Run `npm install`
+
+Wait for the installation to get over, and try running the server with `npm run start`. 
+
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The page will reload when you make changes.
 
-### `npm test`
+### Backend
+This project is a `truffle` project and has `truffle-config.js` as it's config file. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+So, in order to run the development server, you need to have `Ganache` installed which will act as a local blockchain. Having `Ganache` running, you need to compile and migrate the smart contracts onto `Ganache` using the following commands,
 
-### `npm run build`
+This command deploys the smart contract on the blockchain,
+> truffle migrate --reset
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Once that is done, you can run the Smart contract tests to it working,
+> truffle test
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+If you want, you can add seed data to the exchange through the `seed-exchange.js` file. Just run the following command,
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> truffle exec scripts/seed-exchange.js
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This will help you generate data so that the exchange doesn't look empty in the browser.
