@@ -33,9 +33,14 @@ import Exchange from '../abis/Exchange.json'
 import { ETHER_ADDRESS } from "../helpers"
 
 export const loadWeb3 = (dispatch) => {
-  const web3 = new Web3(window.ethereum)
-  dispatch(web3Loaded(web3))
-  return web3
+  if (typeof window.ethereum !== 'undefined') {
+    const web3 = new Web3(window.ethereum)
+    dispatch(web3Loaded(web3))
+    return web3
+  } else {
+    window.alert('Please install MetaMask')
+    window.location.assign("https://metamask.io/")
+  }
 }
 
 export const loadAccount = async (web3, dispatch) => {
@@ -145,24 +150,28 @@ export const subscribeToEvents = async (exchange, dispatch) => {
 }
 
 export const loadBalances = async (dispatch, web3, exchange, token, account) => {
-  // Ether balance in wallet
-  const etherBalance = await web3.eth.getBalance(account)
-  dispatch(etherBalanceLoaded(etherBalance))
+  if (typeof account !== 'undefined') {
+    // Ether balance in wallet
+    const etherBalance = await web3.eth.getBalance(account)
+    dispatch(etherBalanceLoaded(etherBalance))
 
-  // Token balance in wallet
-  const tokenBalance = await token.methods.balanceOf(account).call()
-  dispatch(tokenBalanceLoaded(tokenBalance))
+    // Token balance in wallet
+    const tokenBalance = await token.methods.balanceOf(account).call()
+    dispatch(tokenBalanceLoaded(tokenBalance))
 
-  // Ether balance in exchange
-  const exchangeEtherBalance = await exchange.methods.balanceOf(ETHER_ADDRESS, account).call()
-  dispatch(exchangeEtherBalanceLoaded(exchangeEtherBalance))
+    // Ether balance in exchange
+    const exchangeEtherBalance = await exchange.methods.balanceOf(ETHER_ADDRESS, account).call()
+    dispatch(exchangeEtherBalanceLoaded(exchangeEtherBalance))
 
-  // Token balance in exchange
-  const exchangeTokenBalance = await exchange.methods.balanceOf(token.options.address, account).call()
-  dispatch(exchangeTokenBalanceLoaded(exchangeTokenBalance))
+    // Token balance in exchange
+    const exchangeTokenBalance = await exchange.methods.balanceOf(token.options.address, account).call()
+    dispatch(exchangeTokenBalanceLoaded(exchangeTokenBalance))
 
-  // Trigger all balances loaded
-  dispatch(balancesLoaded())
+    // Trigger all balances loaded
+    dispatch(balancesLoaded())
+  } else {
+    window.alert('Please login with MetaMask')
+  }
 }
 
 export const depositEther = (dispatch, exchange, web3, amount, account) => {
