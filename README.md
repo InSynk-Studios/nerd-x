@@ -11,6 +11,8 @@ You can have a look at this **demo video** to get a sense of how the project wor
 
 You can also check out the [Live Demo](https://nerd-x.herokuapp.com/). The project supports only Metamask, for now. 
 
+**NOTE: If the page fails to load, just wait a few seconds and reload it. It happens because the app is hosted on heroku and heroku's free version resets the app if nobody is using it for a certain period of time.** 
+
 ## About
 **Note: This project was created as a portfolio projects for InSynk Studios and it we do not intend to monetize on it by launching on the mainnet.**
 
