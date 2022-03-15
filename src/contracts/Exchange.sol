@@ -190,7 +190,7 @@ contract Exchange {
           - Fee added to `feeAccount`.
        */
 
-        uint256 _feeAmount = _amountGive.mul(feePercent).div(100);
+        uint256 _feeAmount = _amountGet.mul(feePercent).div(100);
 
         // Give token to the order creator, that he wanted to "get"
         tokens[_tokenGet][msg.sender] = tokens[_tokenGet][msg.sender].sub(

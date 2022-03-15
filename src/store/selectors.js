@@ -159,7 +159,7 @@ export const orderBookSelector = createSelector(
     // Sort buy orders by token price
     orders = {
       ...orders,
-      buyOrders: buyOrders.sort((a, b) => b.tokenPrice = a.tokenPrice)
+      buyOrders: buyOrders.sort((a, b) => b.tokenPrice - a.tokenPrice)
     }
 
     // Fetch sell orders
@@ -167,7 +167,7 @@ export const orderBookSelector = createSelector(
     // Sort sell orders by token price
     orders = {
       ...orders,
-      sellOrders: sellOrders.sort((a, b) => b.tokenPrice = a.tokenPrice)
+      sellOrders: sellOrders.sort((a, b) => b.tokenPrice - a.tokenPrice)
     }
     return orders
   }
