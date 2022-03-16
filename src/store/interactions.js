@@ -130,6 +130,7 @@ export const fillOrder = async (dispatch, exchange, order, account) => {
        * This event means, that transaction has occurred and 
        * we get the transaction hash now.
        */
+      dispatch(balancesLoading())
       dispatch(orderFilling())
     })
     .on('error', (error) => {
@@ -139,19 +140,34 @@ export const fillOrder = async (dispatch, exchange, order, account) => {
 }
 
 export const subscribeToEvents = async (exchange, dispatch) => {
+  const web3 = await loadWeb3(dispatch)
+
   exchange.events.Cancel({}, (err, event) => {
     dispatch(orderCancelled(event.returnValues))
   })
 
-  exchange.events.Trade({}, (err, event) => {
+  exchange.events.Trade({}, async (err, event) => {
+    const networkId = await web3.eth.net.getId()
+    const token = await loadToken(web3, networkId, dispatch)
+    const account = event.returnValues.userFill
+    await loadBalances(dispatch, web3, exchange, token, account)
+    dispatch(balancesLoaded())
     dispatch(orderFilled(event.returnValues))
   })
 
-  exchange.events.Deposit({}, (err, event) => {
+  exchange.events.Deposit({}, async (err, event) => {
+    const networkId = await web3.eth.net.getId()
+    const token = await loadToken(web3, networkId, dispatch)
+    const account = event.returnValues.user
+    await loadBalances(dispatch, web3, exchange, token, account)
     dispatch(balancesLoaded())
   })
 
-  exchange.events.Withdraw({}, (err, event) => {
+  exchange.events.Withdraw({}, async (err, event) => {
+    const networkId = await web3.eth.net.getId()
+    const token = await loadToken(web3, networkId, dispatch)
+    const account = event.returnValues.user
+    await loadBalances(dispatch, web3, exchange, token, account)
     dispatch(balancesLoaded())
   })
 
